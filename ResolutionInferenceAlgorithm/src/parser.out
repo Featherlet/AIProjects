@@ -1,0 +1,437 @@
+Created by PLY version 3.8 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NAME
+
+Grammar
+
+Rule 0     S' -> cnf
+Rule 1     cnf -> NOT LPAREN cnf RPAREN
+Rule 2     cnf -> cnf IMPLY clause
+Rule 3     cnf -> cnf OR clause
+Rule 4     cnf -> cnf AND clause
+Rule 5     cnf -> clause
+Rule 6     clause -> clause OR atom
+Rule 7     clause -> atom
+Rule 8     atom -> NOT CONSTANT LPAREN argus RPAREN
+Rule 9     atom -> CONSTANT LPAREN argus RPAREN
+Rule 10    var -> VARIABLE
+Rule 11    con -> CONSTANT
+Rule 12    argu -> var
+Rule 13    argu -> con
+Rule 14    argus -> argus COMA argu
+Rule 15    argus -> argu
+
+Terminals, with rules where they appear
+
+AND                  : 4
+COMA                 : 14
+CONSTANT             : 8 9 11
+IMPLY                : 2
+LPAREN               : 1 8 9
+NAME                 : 
+NOT                  : 1 8
+OR                   : 3 6
+RPAREN               : 1 8 9
+VARIABLE             : 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+argu                 : 14 15
+argus                : 8 9 14
+atom                 : 6 7
+clause               : 2 3 4 5 6
+cnf                  : 1 2 3 4 0
+con                  : 13
+var                  : 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . cnf
+    (1) cnf -> . NOT LPAREN cnf RPAREN
+    (2) cnf -> . cnf IMPLY clause
+    (3) cnf -> . cnf OR clause
+    (4) cnf -> . cnf AND clause
+    (5) cnf -> . clause
+    (6) clause -> . clause OR atom
+    (7) clause -> . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 4
+    CONSTANT        shift and go to state 5
+
+    cnf                            shift and go to state 2
+    clause                         shift and go to state 1
+    atom                           shift and go to state 3
+
+state 1
+
+    (5) cnf -> clause .
+    (6) clause -> clause . OR atom
+
+  ! shift/reduce conflict for OR resolved as shift
+    RPAREN          reduce using rule 5 (cnf -> clause .)
+    IMPLY           reduce using rule 5 (cnf -> clause .)
+    AND             reduce using rule 5 (cnf -> clause .)
+    $end            reduce using rule 5 (cnf -> clause .)
+    OR              shift and go to state 6
+
+  ! OR              [ reduce using rule 5 (cnf -> clause .) ]
+
+
+state 2
+
+    (0) S' -> cnf .
+    (2) cnf -> cnf . IMPLY clause
+    (3) cnf -> cnf . OR clause
+    (4) cnf -> cnf . AND clause
+
+    IMPLY           shift and go to state 7
+    OR              shift and go to state 8
+    AND             shift and go to state 9
+
+
+state 3
+
+    (7) clause -> atom .
+
+    OR              reduce using rule 7 (clause -> atom .)
+    IMPLY           reduce using rule 7 (clause -> atom .)
+    AND             reduce using rule 7 (clause -> atom .)
+    $end            reduce using rule 7 (clause -> atom .)
+    RPAREN          reduce using rule 7 (clause -> atom .)
+
+
+state 4
+
+    (1) cnf -> NOT . LPAREN cnf RPAREN
+    (8) atom -> NOT . CONSTANT LPAREN argus RPAREN
+
+    LPAREN          shift and go to state 11
+    CONSTANT        shift and go to state 10
+
+
+state 5
+
+    (9) atom -> CONSTANT . LPAREN argus RPAREN
+
+    LPAREN          shift and go to state 12
+
+
+state 6
+
+    (6) clause -> clause OR . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 14
+    CONSTANT        shift and go to state 5
+
+    atom                           shift and go to state 13
+
+state 7
+
+    (2) cnf -> cnf IMPLY . clause
+    (6) clause -> . clause OR atom
+    (7) clause -> . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 14
+    CONSTANT        shift and go to state 5
+
+    clause                         shift and go to state 15
+    atom                           shift and go to state 3
+
+state 8
+
+    (3) cnf -> cnf OR . clause
+    (6) clause -> . clause OR atom
+    (7) clause -> . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 14
+    CONSTANT        shift and go to state 5
+
+    clause                         shift and go to state 16
+    atom                           shift and go to state 3
+
+state 9
+
+    (4) cnf -> cnf AND . clause
+    (6) clause -> . clause OR atom
+    (7) clause -> . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 14
+    CONSTANT        shift and go to state 5
+
+    clause                         shift and go to state 17
+    atom                           shift and go to state 3
+
+state 10
+
+    (8) atom -> NOT CONSTANT . LPAREN argus RPAREN
+
+    LPAREN          shift and go to state 18
+
+
+state 11
+
+    (1) cnf -> NOT LPAREN . cnf RPAREN
+    (1) cnf -> . NOT LPAREN cnf RPAREN
+    (2) cnf -> . cnf IMPLY clause
+    (3) cnf -> . cnf OR clause
+    (4) cnf -> . cnf AND clause
+    (5) cnf -> . clause
+    (6) clause -> . clause OR atom
+    (7) clause -> . atom
+    (8) atom -> . NOT CONSTANT LPAREN argus RPAREN
+    (9) atom -> . CONSTANT LPAREN argus RPAREN
+
+    NOT             shift and go to state 4
+    CONSTANT        shift and go to state 5
+
+    cnf                            shift and go to state 19
+    clause                         shift and go to state 1
+    atom                           shift and go to state 3
+
+state 12
+
+    (9) atom -> CONSTANT LPAREN . argus RPAREN
+    (14) argus -> . argus COMA argu
+    (15) argus -> . argu
+    (12) argu -> . var
+    (13) argu -> . con
+    (10) var -> . VARIABLE
+    (11) con -> . CONSTANT
+
+    VARIABLE        shift and go to state 22
+    CONSTANT        shift and go to state 24
+
+    var                            shift and go to state 23
+    con                            shift and go to state 25
+    argus                          shift and go to state 20
+    argu                           shift and go to state 21
+
+state 13
+
+    (6) clause -> clause OR atom .
+
+    OR              reduce using rule 6 (clause -> clause OR atom .)
+    IMPLY           reduce using rule 6 (clause -> clause OR atom .)
+    AND             reduce using rule 6 (clause -> clause OR atom .)
+    $end            reduce using rule 6 (clause -> clause OR atom .)
+    RPAREN          reduce using rule 6 (clause -> clause OR atom .)
+
+
+state 14
+
+    (8) atom -> NOT . CONSTANT LPAREN argus RPAREN
+
+    CONSTANT        shift and go to state 10
+
+
+state 15
+
+    (2) cnf -> cnf IMPLY clause .
+    (6) clause -> clause . OR atom
+
+  ! shift/reduce conflict for OR resolved as shift
+    RPAREN          reduce using rule 2 (cnf -> cnf IMPLY clause .)
+    IMPLY           reduce using rule 2 (cnf -> cnf IMPLY clause .)
+    AND             reduce using rule 2 (cnf -> cnf IMPLY clause .)
+    $end            reduce using rule 2 (cnf -> cnf IMPLY clause .)
+    OR              shift and go to state 6
+
+  ! OR              [ reduce using rule 2 (cnf -> cnf IMPLY clause .) ]
+
+
+state 16
+
+    (3) cnf -> cnf OR clause .
+    (6) clause -> clause . OR atom
+
+  ! shift/reduce conflict for OR resolved as shift
+    RPAREN          reduce using rule 3 (cnf -> cnf OR clause .)
+    IMPLY           reduce using rule 3 (cnf -> cnf OR clause .)
+    AND             reduce using rule 3 (cnf -> cnf OR clause .)
+    $end            reduce using rule 3 (cnf -> cnf OR clause .)
+    OR              shift and go to state 6
+
+  ! OR              [ reduce using rule 3 (cnf -> cnf OR clause .) ]
+
+
+state 17
+
+    (4) cnf -> cnf AND clause .
+    (6) clause -> clause . OR atom
+
+  ! shift/reduce conflict for OR resolved as shift
+    RPAREN          reduce using rule 4 (cnf -> cnf AND clause .)
+    IMPLY           reduce using rule 4 (cnf -> cnf AND clause .)
+    AND             reduce using rule 4 (cnf -> cnf AND clause .)
+    $end            reduce using rule 4 (cnf -> cnf AND clause .)
+    OR              shift and go to state 6
+
+  ! OR              [ reduce using rule 4 (cnf -> cnf AND clause .) ]
+
+
+state 18
+
+    (8) atom -> NOT CONSTANT LPAREN . argus RPAREN
+    (14) argus -> . argus COMA argu
+    (15) argus -> . argu
+    (12) argu -> . var
+    (13) argu -> . con
+    (10) var -> . VARIABLE
+    (11) con -> . CONSTANT
+
+    VARIABLE        shift and go to state 22
+    CONSTANT        shift and go to state 24
+
+    var                            shift and go to state 23
+    con                            shift and go to state 25
+    argus                          shift and go to state 26
+    argu                           shift and go to state 21
+
+state 19
+
+    (1) cnf -> NOT LPAREN cnf . RPAREN
+    (2) cnf -> cnf . IMPLY clause
+    (3) cnf -> cnf . OR clause
+    (4) cnf -> cnf . AND clause
+
+    RPAREN          shift and go to state 27
+    IMPLY           shift and go to state 7
+    OR              shift and go to state 8
+    AND             shift and go to state 9
+
+
+state 20
+
+    (9) atom -> CONSTANT LPAREN argus . RPAREN
+    (14) argus -> argus . COMA argu
+
+    RPAREN          shift and go to state 28
+    COMA            shift and go to state 29
+
+
+state 21
+
+    (15) argus -> argu .
+
+    RPAREN          reduce using rule 15 (argus -> argu .)
+    COMA            reduce using rule 15 (argus -> argu .)
+
+
+state 22
+
+    (10) var -> VARIABLE .
+
+    RPAREN          reduce using rule 10 (var -> VARIABLE .)
+    COMA            reduce using rule 10 (var -> VARIABLE .)
+
+
+state 23
+
+    (12) argu -> var .
+
+    RPAREN          reduce using rule 12 (argu -> var .)
+    COMA            reduce using rule 12 (argu -> var .)
+
+
+state 24
+
+    (11) con -> CONSTANT .
+
+    RPAREN          reduce using rule 11 (con -> CONSTANT .)
+    COMA            reduce using rule 11 (con -> CONSTANT .)
+
+
+state 25
+
+    (13) argu -> con .
+
+    RPAREN          reduce using rule 13 (argu -> con .)
+    COMA            reduce using rule 13 (argu -> con .)
+
+
+state 26
+
+    (8) atom -> NOT CONSTANT LPAREN argus . RPAREN
+    (14) argus -> argus . COMA argu
+
+    RPAREN          shift and go to state 30
+    COMA            shift and go to state 29
+
+
+state 27
+
+    (1) cnf -> NOT LPAREN cnf RPAREN .
+
+    RPAREN          reduce using rule 1 (cnf -> NOT LPAREN cnf RPAREN .)
+    IMPLY           reduce using rule 1 (cnf -> NOT LPAREN cnf RPAREN .)
+    OR              reduce using rule 1 (cnf -> NOT LPAREN cnf RPAREN .)
+    AND             reduce using rule 1 (cnf -> NOT LPAREN cnf RPAREN .)
+    $end            reduce using rule 1 (cnf -> NOT LPAREN cnf RPAREN .)
+
+
+state 28
+
+    (9) atom -> CONSTANT LPAREN argus RPAREN .
+
+    OR              reduce using rule 9 (atom -> CONSTANT LPAREN argus RPAREN .)
+    IMPLY           reduce using rule 9 (atom -> CONSTANT LPAREN argus RPAREN .)
+    AND             reduce using rule 9 (atom -> CONSTANT LPAREN argus RPAREN .)
+    $end            reduce using rule 9 (atom -> CONSTANT LPAREN argus RPAREN .)
+    RPAREN          reduce using rule 9 (atom -> CONSTANT LPAREN argus RPAREN .)
+
+
+state 29
+
+    (14) argus -> argus COMA . argu
+    (12) argu -> . var
+    (13) argu -> . con
+    (10) var -> . VARIABLE
+    (11) con -> . CONSTANT
+
+    VARIABLE        shift and go to state 22
+    CONSTANT        shift and go to state 24
+
+    var                            shift and go to state 23
+    con                            shift and go to state 25
+    argu                           shift and go to state 31
+
+state 30
+
+    (8) atom -> NOT CONSTANT LPAREN argus RPAREN .
+
+    OR              reduce using rule 8 (atom -> NOT CONSTANT LPAREN argus RPAREN .)
+    IMPLY           reduce using rule 8 (atom -> NOT CONSTANT LPAREN argus RPAREN .)
+    AND             reduce using rule 8 (atom -> NOT CONSTANT LPAREN argus RPAREN .)
+    $end            reduce using rule 8 (atom -> NOT CONSTANT LPAREN argus RPAREN .)
+    RPAREN          reduce using rule 8 (atom -> NOT CONSTANT LPAREN argus RPAREN .)
+
+
+state 31
+
+    (14) argus -> argus COMA argu .
+
+    RPAREN          reduce using rule 14 (argus -> argus COMA argu .)
+    COMA            reduce using rule 14 (argus -> argus COMA argu .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for OR in state 1 resolved as shift
+WARNING: shift/reduce conflict for OR in state 15 resolved as shift
+WARNING: shift/reduce conflict for OR in state 16 resolved as shift
+WARNING: shift/reduce conflict for OR in state 17 resolved as shift
